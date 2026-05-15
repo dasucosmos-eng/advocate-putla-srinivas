@@ -1,18 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// Admin credentials
-const ADMIN_USERNAME = "putla_srinivas";
-const ADMIN_PASSWORD = "Srinivas@789";
+// Super Admin credentials
+const ADMIN_EMAIL = "srinuputla789@gmail.com";
+const ADMIN_PASSWORD = "ERP@123";
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { username, password } = body;
+    const { email, password } = body;
 
-    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
       // Generate a simple token
       const token = Buffer.from(
-        `${ADMIN_USERNAME}:${Date.now()}:${Math.random().toString(36).slice(2)}`
+        `${ADMIN_EMAIL}:${Date.now()}:${Math.random().toString(36).slice(2)}`
       ).toString("base64");
 
       return NextResponse.json({

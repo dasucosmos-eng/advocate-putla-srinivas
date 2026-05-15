@@ -1605,7 +1605,7 @@ function AdminLoginModal({
   onClose: () => void;
   onLogin: (token: string) => void;
 }) {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -1617,7 +1617,7 @@ function AdminLoginModal({
       const res = await fetch("/api/admin/auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
       const data = await res.json();
       if (data.success) {
@@ -1673,11 +1673,12 @@ function AdminLoginModal({
 
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-charcoal mb-1.5">Username</label>
+              <label className="block text-sm font-medium text-charcoal mb-1.5">Email</label>
               <Input
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter username"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter admin email"
                 className="h-11"
               />
             </div>
@@ -1694,7 +1695,7 @@ function AdminLoginModal({
             </div>
             <Button
               onClick={handleLogin}
-              disabled={loading || !username || !password}
+              disabled={loading || !email || !password}
               className="w-full bg-charcoal hover:bg-navy text-white h-11 font-semibold"
             >
               {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Lock className="w-4 h-4" />}

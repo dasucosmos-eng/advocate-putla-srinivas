@@ -52,3 +52,8 @@ prompt
 server.log
 # Skills directory
 /skills/
+.firebase/
+functions/
+init-identity.js
+google-cloud-cli-linux-x86_64.tar.gz
+out/
