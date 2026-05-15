@@ -27,6 +27,16 @@ import {
   Timer,
   ChevronUp,
   ExternalLink,
+  Lock,
+  LogOut,
+  Trash2,
+  Eye,
+  EyeOff,
+  Globe,
+  Languages,
+  Send,
+  Loader2,
+  RefreshCw,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -295,10 +305,36 @@ const seoBlogPosts: BlogPost[] = [
   },
 ];
 
+/* ─── Admin State Types ─── */
+interface AdminBlog {
+  id: string;
+  title: string;
+  titleTe: string | null;
+  slug: string;
+  excerpt: string;
+  excerptTe: string | null;
+  content: string;
+  contentTe: string | null;
+  category: string;
+  keywords: string[];
+  readTime: string;
+  language: string;
+  isPublished: boolean;
+  createdAt: string;
+  updatedAt: string;
+  date?: string;
+}
+
 /* ─── Main Page Component ─── */
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  // Admin state
+  const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const [adminLoggedIn, setAdminLoggedIn] = useState(false);
+  const [adminToken, setAdminToken] = useState("");
+  const [showAdminPanel, setShowAdminPanel] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -429,8 +465,33 @@ export default function Home() {
       {/* ─── Contact Section ─── */}
       <ContactSection />
 
+      {/* ─── Admin Login Modal ─── */}
+      <AdminLoginModal
+        show={showAdminLogin}
+        onClose={() => setShowAdminLogin(false)}
+        onLogin={(token) => {
+          setAdminToken(token);
+          setAdminLoggedIn(true);
+          setShowAdminLogin(false);
+          setShowAdminPanel(true);
+        }}
+      />
+
+      {/* ─── Admin Panel (Full Screen Overlay) ─── */}
+      {adminLoggedIn && showAdminPanel && (
+        <AdminPanel
+          token={adminToken}
+          onLogout={() => {
+            setAdminToken("");
+            setAdminLoggedIn(false);
+            setShowAdminPanel(false);
+          }}
+          onClose={() => setShowAdminPanel(false)}
+        />
+      )}
+
       {/* ─── Footer ─── */}
-      <Footer />
+      <Footer onAdminClick={() => setShowAdminLogin(true)} />
     </div>
   );
 }
@@ -1016,54 +1077,45 @@ function WhyChooseSection() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   BLOG SECTION (SEO-POWERED)
+   BLOG SECTION (DATABASE-DRIVEN)
    ═══════════════════════════════════════════════════════════ */
 function BlogSection() {
   const { ref, isInView } = useSectionInView();
   const [expandedBlog, setExpandedBlog] = useState<string | null>(null);
-  const [aiBlogs, setAiBlogs] = useState<BlogPost[]>([]);
-  const [generating, setGenerating] = useState(false);
+  const [dbBlogs, setDbBlogs] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [viewLanguage, setViewLanguage] = useState<"en" | "te">("en");
 
-  const allBlogs = [...seoBlogPosts, ...aiBlogs];
+  // Fetch published blogs from database on mount
+  useEffect(() => {
+    async function fetchBlogs() {
+      try {
+        const res = await fetch("/api/blogs");
+        const data = await res.json();
+        if (data.success && data.blogs) {
+          setDbBlogs(data.blogs);
+        }
+      } catch {
+        console.log("Using fallback blogs");
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchBlogs();
+  }, []);
+
+  // Fallback to static blogs if DB is empty
+  const displayBlogs = dbBlogs.length > 0 ? dbBlogs : seoBlogPosts;
   const filteredBlogs =
     selectedCategory === "All"
-      ? allBlogs
-      : allBlogs.filter((b) => b.category === selectedCategory);
+      ? displayBlogs
+      : displayBlogs.filter((b) => b.category === selectedCategory);
 
   const categories = [
     "All",
-    ...Array.from(new Set(allBlogs.map((b) => b.category))),
+    ...Array.from(new Set(displayBlogs.map((b) => b.category))),
   ];
-
-  async function generateAIBlog() {
-    setGenerating(true);
-    try {
-      const res = await fetch("/api/generate-blog", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({}),
-      });
-      const data = await res.json();
-      if (data.success && data.blog) {
-        const newBlog: BlogPost = {
-          id: `ai-${Date.now()}`,
-          title: data.blog.title,
-          excerpt: data.blog.excerpt,
-          category: data.blog.category,
-          keywords: data.blog.keywords || [],
-          readTime: data.blog.readTime || "5 min read",
-          date: data.blog.date || new Date().toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" }),
-          content: data.blog.content,
-        };
-        setAiBlogs((prev) => [newBlog, ...prev]);
-      }
-    } catch {
-      console.error("Failed to generate blog");
-    } finally {
-      setGenerating(false);
-    }
-  }
 
   return (
     <section id="blog" ref={ref} className="py-20 sm:py-28 bg-white">
@@ -1082,21 +1134,28 @@ function BlogSection() {
             Legal <span className="text-gold-dark">Blog</span>
           </h2>
           <div className="gold-divider w-20 mx-auto mb-6" />
-          <p className="text-charcoal/60 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-8">
+          <p className="text-charcoal/60 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-6">
             Expert legal articles by <strong>Advocate Putla Srinivas</strong> on
             Criminal Law, Civil Litigation, Family Law, and more. Stay informed
             about your legal rights and the latest developments at Tanuku Court.
           </p>
 
-          {/* AI Generate Button */}
-          <Button
-            onClick={generateAIBlog}
-            disabled={generating}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-gold to-gold-dark text-navy-dark font-semibold rounded-full hover:shadow-lg hover:shadow-gold/20 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
-          >
-            <Sparkles className={`w-4 h-4 ${generating ? "animate-spin" : ""}`} />
-            {generating ? "Generating SEO Article..." : "Generate New Article with AI"}
-          </Button>
+          {/* Language Toggle */}
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <button
+              onClick={() => setViewLanguage("en")}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${viewLanguage === "en" ? "bg-charcoal text-white" : "bg-charcoal/5 text-charcoal/50"}`}
+            >
+              English
+            </button>
+            <button
+              onClick={() => setViewLanguage("te")}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-1.5 ${viewLanguage === "te" ? "bg-charcoal text-white" : "bg-charcoal/5 text-charcoal/50"}`}
+            >
+              <Languages className="w-3.5 h-3.5" />
+              Telugu
+            </button>
+          </div>
         </motion.div>
 
         {/* Category Filter */}
@@ -1121,7 +1180,11 @@ function BlogSection() {
           ))}
         </motion.div>
 
-        {/* Blog Grid */}
+        {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <Loader2 className="w-8 h-8 text-gold animate-spin" />
+          </div>
+        ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {filteredBlogs.map((blog, index) => (
             <motion.article
@@ -1159,7 +1222,7 @@ function BlogSection() {
                       )
                     }
                   >
-                    {blog.title}
+                    {viewLanguage === "te" && blog.titleTe ? blog.titleTe : blog.title}
                   </h3>
 
                   {/* Excerpt / Content */}
@@ -1173,7 +1236,7 @@ function BlogSection() {
                         transition={{ duration: 0.4 }}
                         className="text-charcoal/70 text-sm leading-relaxed flex-1 overflow-hidden"
                         itemProp="articleBody"
-                        dangerouslySetInnerHTML={{ __html: blog.content }}
+                        dangerouslySetInnerHTML={{ __html: (viewLanguage === "te" && blog.contentTe) ? blog.contentTe : blog.content }}
                       />
                     ) : (
                       <motion.div
@@ -1184,7 +1247,7 @@ function BlogSection() {
                         className="text-charcoal/60 text-sm leading-relaxed flex-1 line-clamp-4"
                         itemProp="description"
                       >
-                        {blog.excerpt}
+                        {viewLanguage === "te" && blog.excerptTe ? blog.excerptTe : blog.excerpt}
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -1238,6 +1301,7 @@ function BlogSection() {
           ))}
         </div>
 
+        )}
         {/* SEO Note */}
         <motion.p
           initial={{ opacity: 0 }}
@@ -1529,7 +1593,518 @@ function ContactSection() {
 /* ═══════════════════════════════════════════════════════════
    FOOTER
    ═══════════════════════════════════════════════════════════ */
-function Footer() {
+/* ═══════════════════════════════════════════════════════════
+   ADMIN LOGIN MODAL
+   ═══════════════════════════════════════════════════════════ */
+function AdminLoginModal({
+  show,
+  onClose,
+  onLogin,
+}: {
+  show: boolean;
+  onClose: () => void;
+  onLogin: (token: string) => void;
+}) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleLogin() {
+    setError("");
+    setLoading(true);
+    try {
+      const res = await fetch("/api/admin/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        onLogin(data.token);
+      } else {
+        setError(data.error || "Login failed");
+      }
+    } catch {
+      setError("Connection error. Try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (!show) return null;
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+        onClick={onClose}
+      >
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.9, opacity: 0 }}
+          className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-charcoal flex items-center justify-center">
+                <Lock className="w-5 h-5 text-gold" />
+              </div>
+              <div>
+                <h3 className="font-bold text-charcoal text-lg">Super Admin</h3>
+                <p className="text-charcoal/50 text-xs">Advocate Putla Srinivas</p>
+              </div>
+            </div>
+            <button onClick={onClose} className="text-charcoal/40 hover:text-charcoal">
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg p-3 mb-4">
+              {error}
+            </div>
+          )}
+
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-charcoal mb-1.5">Username</label>
+              <Input
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Enter username"
+                className="h-11"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-charcoal mb-1.5">Password</label>
+              <Input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter password"
+                className="h-11"
+                onKeyDown={(e) => e.key === "Enter" && handleLogin()}
+              />
+            </div>
+            <Button
+              onClick={handleLogin}
+              disabled={loading || !username || !password}
+              className="w-full bg-charcoal hover:bg-navy text-white h-11 font-semibold"
+            >
+              {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Lock className="w-4 h-4" />}
+              {loading ? "Signing in..." : "Sign In"}
+            </Button>
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ADMIN PANEL
+   ═══════════════════════════════════════════════════════════ */
+function AdminPanel({
+  token,
+  onLogout,
+  onClose,
+}: {
+  token: string;
+  onLogout: () => void;
+  onClose: () => void;
+}) {
+  const [activeTab, setActiveTab] = useState<"create" | "manage">("create");
+  const [topic, setTopic] = useState("");
+  const [category, setCategory] = useState("Criminal Law");
+  const [researchDepth, setResearchDepth] = useState<"normal" | "deep">("normal");
+  const [generating, setGenerating] = useState(false);
+  const [previewBlog, setPreviewBlog] = useState<Record<string, string> | null>(null);
+  const [blogs, setBlogs] = useState<AdminBlog[]>([]);
+  const [loadingBlogs, setLoadingBlogs] = useState(true);
+  const [statusMsg, setStatusMsg] = useState("");
+
+  // Fetch admin blogs
+  async function fetchBlogs() {
+    setLoadingBlogs(true);
+    try {
+      const res = await fetch("/api/admin/blogs", {
+        headers: { "x-admin-token": token },
+      });
+      const data = await res.json();
+      if (data.success) setBlogs(data.blogs);
+    } catch {
+      console.error("Failed to fetch blogs");
+    } finally {
+      setLoadingBlogs(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
+  async function generateBlog() {
+    if (!topic.trim()) return;
+    setGenerating(true);
+    setPreviewBlog(null);
+    setStatusMsg("");
+    try {
+      const res = await fetch("/api/admin/generate-blog", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ topic, category, researchDepth }),
+      });
+      const data = await res.json();
+      if (data.success && data.blog) {
+        setPreviewBlog(data.blog);
+        setStatusMsg(data.researchUsed ? "Blog generated with web research data." : "Blog generated from AI knowledge.");
+      } else {
+        setStatusMsg("Error: " + (data.error || "Generation failed"));
+      }
+    } catch {
+      setStatusMsg("Connection error. Try again.");
+    } finally {
+      setGenerating(false);
+    }
+  }
+
+  async function publishBlog(blog: Record<string, string>) {
+    setStatusMsg("Publishing...");
+    try {
+      const res = await fetch("/api/admin/blogs", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-token": token,
+        },
+        body: JSON.stringify({
+          ...blog,
+          isPublished: true,
+          language: "both",
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setPreviewBlog(null);
+        setTopic("");
+        setStatusMsg("Blog published successfully!");
+        fetchBlogs();
+      } else {
+        setStatusMsg("Error: " + (data.error || "Publish failed"));
+      }
+    } catch {
+      setStatusMsg("Connection error.");
+    }
+  }
+
+  async function togglePublish(blogId: string, currentStatus: boolean) {
+    try {
+      const res = await fetch(`/api/admin/blogs/${blogId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-token": token,
+        },
+        body: JSON.stringify({ isPublished: !currentStatus }),
+      });
+      const data = await res.json();
+      if (data.success) fetchBlogs();
+    } catch {
+      console.error("Failed to toggle publish");
+    }
+  }
+
+  async function deleteBlog(blogId: string) {
+    if (!confirm("Are you sure you want to delete this blog?")) return;
+    try {
+      const res = await fetch(`/api/admin/blogs/${blogId}`, {
+        method: "DELETE",
+        headers: { "x-admin-token": token },
+      });
+      const data = await res.json();
+      if (data.success) fetchBlogs();
+    } catch {
+      console.error("Failed to delete");
+    }
+  }
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-[100] bg-white overflow-auto"
+      >
+        {/* Admin Header */}
+        <div className="sticky top-0 z-10 bg-white border-b border-charcoal/10 shadow-sm">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-gold/10 flex items-center justify-center">
+                <Scale className="w-4 h-4 text-gold-dark" />
+              </div>
+              <h1 className="font-bold text-charcoal">Admin Panel — Advocate Putla Srinivas</h1>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={onClose}
+                className="px-3 py-2 text-sm text-charcoal/60 hover:text-charcoal border border-charcoal/10 rounded-lg"
+              >
+                View Website
+              </button>
+              <button
+                onClick={onLogout}
+                className="px-3 py-2 text-sm text-red-500 hover:text-red-700 border border-red-200 hover:border-red-300 rounded-lg flex items-center gap-1.5"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+          {/* Tabs */}
+          <div className="flex gap-1 mb-8 border-b border-charcoal/10">
+            <button
+              onClick={() => setActiveTab("create")}
+              className={`px-5 py-3 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === "create" ? "border-gold text-gold-dark" : "border-transparent text-charcoal/50 hover:text-charcoal"
+              }`}
+            >
+              <Sparkles className="w-4 h-4 inline mr-1.5" />
+              Create Blog
+            </button>
+            <button
+              onClick={() => setActiveTab("manage")}
+              className={`px-5 py-3 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === "manage" ? "border-gold text-gold-dark" : "border-transparent text-charcoal/50 hover:text-charcoal"
+              }`}
+            >
+              <FileText className="w-4 h-4 inline mr-1.5" />
+              Manage Blogs
+            </button>
+          </div>
+
+          {/* Status Message */}
+          {statusMsg && (
+            <div className={`mb-6 px-4 py-3 rounded-lg text-sm border ${statusMsg.includes("Error") ? "bg-red-50 border-red-200 text-red-600" : "bg-green-50 border-green-200 text-green-700"}`}>
+              {statusMsg}
+            </div>
+          )}
+
+          {/* ─── Create Tab ─── */}
+          {activeTab === "create" && (
+            <div className="grid lg:grid-cols-2 gap-8">
+              {/* Input Side */}
+              <div className="space-y-6">
+                <Card className="border border-charcoal/10 rounded-xl">
+                  <CardContent className="p-6">
+                    <h3 className="font-bold text-charcoal mb-4 flex items-center gap-2">
+                      <Sparkles className="w-5 h-5 text-gold" />
+                      AI Blog Generator
+                    </h3>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-charcoal mb-1.5">Blog Topic *</label>
+                        <Textarea
+                          value={topic}
+                          onChange={(e) => setTopic(e.target.value)}
+                          placeholder="e.g., How to file for anticipatory bail in Andhra Pradesh, Property registration process in West Godavari, Child custody rights for fathers in India..."
+                          rows={3}
+                          className="resize-none"
+                        />
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-charcoal mb-1.5">Category</label>
+                          <div className="flex flex-wrap gap-2">
+                            {["Criminal Law", "Civil Law", "Family Law", "Legal Rights", "Property Law", "Court Procedures"].map((cat) => (
+                              <button
+                                key={cat}
+                                onClick={() => setCategory(cat)}
+                                className={`px-3 py-1.5 text-xs rounded-full border transition-colors ${
+                                  category === cat ? "bg-gold/10 border-gold text-gold-dark" : "border-charcoal/15 text-charcoal/50"
+                                }`}
+                              >
+                                {cat}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-charcoal mb-1.5">Research Depth</label>
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => setResearchDepth("normal")}
+                              className={`px-3 py-1.5 text-xs rounded-full border transition-colors ${researchDepth === "normal" ? "bg-gold/10 border-gold text-gold-dark" : "border-charcoal/15 text-charcoal/50"}`}
+                            >
+                              Standard
+                            </button>
+                            <button
+                              onClick={() => setResearchDepth("deep")}
+                              className={`px-3 py-1.5 text-xs rounded-full border transition-colors ${researchDepth === "deep" ? "bg-gold/10 border-gold text-gold-dark" : "border-charcoal/15 text-charcoal/50"}`}
+                            >
+                              Deep Research
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <Button
+                        onClick={generateBlog}
+                        disabled={generating || !topic.trim()}
+                        className="w-full bg-gradient-to-r from-gold to-gold-dark text-navy-dark font-semibold h-11 hover:shadow-lg disabled:opacity-50"
+                      >
+                        {generating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
+                        {generating ? "AI is researching & writing... (30-60s)" : "Generate SEO Blog with AI"}
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Preview Side */}
+              <div>
+                {previewBlog ? (
+                  <Card className="border border-charcoal/10 rounded-xl overflow-hidden">
+                    <div className="bg-charcoal p-4 flex items-center justify-between">
+                      <h3 className="text-white font-semibold text-sm flex items-center gap-2">
+                        <Globe className="w-4 h-4 text-gold" />
+                        English Preview
+                      </h3>
+                      <Badge className="bg-gold/20 text-gold text-xs">{previewBlog.category || category}</Badge>
+                    </div>
+                    <CardContent className="p-6 max-h-[60vh] overflow-y-auto">
+                      <h2 className="text-xl font-bold text-charcoal mb-2">{previewBlog.title}</h2>
+                      <p className="text-charcoal/60 text-sm mb-4 italic">{previewBlog.excerpt}</p>
+                      <Separator className="my-4" />
+                      {previewBlog.keywords && (
+                        <div className="flex flex-wrap gap-1 mb-4">
+                          {Array.isArray(previewBlog.keywords)
+                            ? previewBlog.keywords.map((kw: string) => (
+                                <Badge key={kw} className="bg-gold/10 text-gold-dark text-[10px] border-0">{kw}</Badge>
+                              ))
+                            : null}
+                        </div>
+                      )}
+                      <div
+                        className="prose prose-sm text-charcoal/70 leading-relaxed"
+                        dangerouslySetInnerHTML={{ __html: previewBlog.content }}
+                      />
+                      {previewBlog.titleTe && (
+                        <>
+                          <div className="bg-navy/5 rounded-xl p-4 mt-6 border border-navy/10">
+                            <h4 className="font-semibold text-navy text-sm flex items-center gap-2 mb-2">
+                              <Languages className="w-4 h-4 text-gold" />
+                              Telugu Translation Available
+                            </h4>
+                            <p className="text-navy/70 text-xs font-medium">{previewBlog.titleTe}</p>
+                          </div>
+                        </>
+                      )}
+                    </CardContent>
+                    <div className="border-t border-charcoal/10 p-4 bg-cream/50">
+                      <Button
+                        onClick={() => publishBlog(previewBlog)}
+                        className="w-full bg-charcoal hover:bg-navy text-white font-semibold h-11"
+                      >
+                        <Send className="w-4 h-4" />
+                        Publish Blog to Website
+                      </Button>
+                    </div>
+                  </Card>
+                ) : (
+                  <div className="border-2 border-dashed border-charcoal/15 rounded-xl h-full flex items-center justify-center p-8 text-center">
+                    <div>
+                      <FileText className="w-12 h-12 text-charcoal/20 mx-auto mb-4" />
+                      <p className="text-charcoal/40 text-sm font-medium">Blog preview will appear here</p>
+                      <p className="text-charcoal/30 text-xs mt-1">Enter a topic and click Generate</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* ─── Manage Tab ─── */}
+          {activeTab === "manage" && (
+            <div>
+              {loadingBlogs ? (
+                <div className="flex items-center justify-center py-20">
+                  <Loader2 className="w-6 h-6 text-gold animate-spin" />
+                </div>
+              ) : blogs.length === 0 ? (
+                <div className="text-center py-20">
+                  <FileText className="w-12 h-12 text-charcoal/20 mx-auto mb-4" />
+                  <p className="text-charcoal/40 text-sm">No blogs created yet.</p>
+                  <button
+                    onClick={() => setActiveTab("create")}
+                    className="text-gold-dark text-sm font-medium mt-2 hover:underline"
+                  >
+                    Create your first blog
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {blogs.map((blog) => (
+                    <div
+                      key={blog.id}
+                      className="flex items-center gap-4 p-4 bg-cream rounded-xl border border-charcoal/5 hover:border-gold/20 transition-colors"
+                    >
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-semibold text-charcoal text-sm truncate">{blog.title}</h4>
+                        <div className="flex items-center gap-2 mt-1">
+                          <Badge className="bg-gold/10 text-gold-dark text-[10px] border-0">{blog.category}</Badge>
+                          <span className="text-charcoal/40 text-xs">{blog.readTime}</span>
+                          <span className="text-charcoal/30 text-xs">{new Date(blog.createdAt).toLocaleDateString("en-IN")}</span>
+                          <Badge className={`text-[10px] border-0 ${blog.isPublished ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-500"}`}>
+                            {blog.isPublished ? "Published" : "Draft"}
+                          </Badge>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        {blog.titleTe && (
+                          <Badge className="bg-purple-50 text-purple-600 text-[10px] border-0 flex items-center gap-1">
+                            <Languages className="w-3 h-3" /> Telugu
+                          </Badge>
+                        )}
+                        <button
+                          onClick={() => togglePublish(blog.id, blog.isPublished)}
+                          className={`p-2 rounded-lg transition-colors ${blog.isPublished ? "text-green-500 hover:bg-green-50" : "text-gray-400 hover:bg-gray-50"}`}
+                          title={blog.isPublished ? "Unpublish" : "Publish"}
+                        >
+                          {blog.isPublished ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                        </button>
+                        <button
+                          onClick={() => deleteBlog(blog.id)}
+                          className="p-2 rounded-lg text-red-400 hover:bg-red-50 transition-colors"
+                          title="Delete"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════ */
+function Footer({ onAdminClick }: { onAdminClick: () => void }) {
   return (
     <footer className="bg-navy-dark text-white mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
@@ -1565,6 +2140,15 @@ function Footer() {
                   <Users className="w-4 h-4 text-white/60" />
                 </a>
               ))}
+              {/* Hidden Admin Access */}
+              <button
+                onClick={onAdminClick}
+                className="w-9 h-9 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center hover:bg-white/10 transition-colors"
+                aria-label="Admin"
+                title="Admin"
+              >
+                <Lock className="w-3.5 h-3.5 text-white/20" />
+              </button>
             </div>
           </div>
 
