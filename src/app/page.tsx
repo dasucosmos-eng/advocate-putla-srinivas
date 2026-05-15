@@ -21,6 +21,12 @@ import {
   X,
   CheckCircle2,
   Star,
+  Calendar,
+  Sparkles,
+  Tag,
+  Timer,
+  ChevronUp,
+  ExternalLink,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -42,6 +48,7 @@ const navLinks = [
   { label: "About", href: "#about" },
   { label: "Practice Areas", href: "#practice" },
   { label: "Why Choose Us", href: "#why" },
+  { label: "Legal Blog", href: "#blog" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
 ];
@@ -52,7 +59,7 @@ const practiceAreas = [
     icon: Shield,
     title: "Criminal Law",
     description:
-      "Comprehensive criminal defense and prosecution services. From bail applications to trial representation, we ensure every client receives a fair and vigorous defense. Our expertise spans cybercrime, white-collar offenses, property disputes, and more.",
+      "Comprehensive criminal defense and prosecution services by Advocate Putla Srinivas. From bail applications to trial representation, we ensure every client receives a fair and vigorous defense at Tanuku Court. Our expertise spans cybercrime, white-collar offenses, property disputes, and more.",
     features: [
       "Bail & Anticipatory Bail",
       "Criminal Trial Defense",
@@ -67,7 +74,7 @@ const practiceAreas = [
     icon: FileText,
     title: "Civil Litigation",
     description:
-      "Expert handling of civil disputes including property conflicts, contract breaches, recovery suits, and consumer cases. We pursue every legal avenue to protect your rights and secure favorable outcomes through meticulous preparation and strategy.",
+      "Expert handling of civil disputes including property conflicts, contract breaches, recovery suits, and consumer cases by Advocate Putla Srinivas. We pursue every legal avenue to protect your rights and secure favorable outcomes through meticulous preparation and strategy at the Tanuku Court.",
     features: [
       "Property Disputes",
       "Contract Enforcement",
@@ -82,7 +89,7 @@ const practiceAreas = [
     icon: Heart,
     title: "Family Law",
     description:
-      "Sensitive and compassionate handling of family disputes including divorce, child custody, maintenance, and domestic matters. We approach every case with empathy while fiercely advocating for our clients' best interests and their families' welfare.",
+      "Sensitive and compassionate handling of family disputes including divorce, child custody, maintenance, and domestic matters by Advocate Putla Srinivas. We approach every case with empathy while fiercely advocating for our clients' best interests and their families' welfare.",
     features: [
       "Divorce & Separation",
       "Child Custody Matters",
@@ -108,20 +115,183 @@ const testimonials = [
   {
     name: "Ramesh Kumar",
     role: "Property Dispute Client",
-    text: "Advocate Srinivas Putla handled my complex property case with exceptional expertise. His deep knowledge of civil law and strategic approach helped me secure a favorable judgment. I highly recommend his services to anyone seeking legal counsel.",
+    text: "Advocate Putla Srinivas handled my complex property case with exceptional expertise. His deep knowledge of civil law and strategic approach helped me secure a favorable judgment at Tanuku Court. I highly recommend his services to anyone seeking legal counsel.",
     rating: 5,
   },
   {
     name: "Lakshmi Devi",
     role: "Family Law Client",
-    text: "During the most difficult time of my life, Advocate Putla provided not just legal support but also emotional guidance. He handled my divorce and custody case with utmost sensitivity and professionalism. Truly a compassionate advocate.",
+    text: "During the most difficult time of my life, Advocate Putla Srinivas provided not just legal support but also emotional guidance. He handled my divorce and custody case with utmost sensitivity and professionalism at Tanuku Court. Truly a compassionate advocate.",
     rating: 5,
   },
   {
     name: "Suresh Babu",
     role: "Criminal Defense Client",
-    text: "I was falsely accused in a criminal case, and Advocate Putla fought tirelessly to prove my innocence. His courtroom skills are remarkable, and he left no stone unturned in my defense. I am grateful for his dedication and commitment.",
+    text: "I was falsely accused in a criminal case, and Advocate Putla Srinivas fought tirelessly to prove my innocence at Tanuku Court. His courtroom skills are remarkable, and he left no stone unturned in my defense. I am grateful for his dedication and commitment to justice.",
     rating: 5,
+  },
+];
+
+/* ─── SEO Blog Data ─── */
+interface BlogPost {
+  id: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  keywords: string[];
+  readTime: string;
+  date: string;
+  content: string;
+}
+
+const seoBlogPosts: BlogPost[] = [
+  {
+    id: "bail-guide-tanuku",
+    title: "How to Get Bail in Tanuku Court: Complete Legal Guide by Advocate Putla Srinivas",
+    excerpt:
+      "Comprehensive guide on bail procedures at Tanuku Court, Andhra Pradesh. Learn about regular bail, anticipatory bail, and how an experienced criminal lawyer can help secure your release quickly.",
+    category: "Criminal Law",
+    keywords: ["bail lawyer tanuku", "anticipatory bail", "criminal lawyer tanuku court", "bail procedure andhra pradesh"],
+    readTime: "6 min read",
+    date: "May 10, 2026",
+    content: `
+      <h2>Understanding Bail Proceedings at Tanuku Court</h2>
+      <p>Bail is a legal mechanism that allows an accused person to be released from custody while their case is being tried. At Tanuku Court in West Godavari District, bail applications are heard under the Code of Criminal Procedure (CrPC). Whether you are facing charges under Section 420, Section 498A, Section 307, or any other criminal provision, understanding your bail rights is the first step toward securing your freedom.</p>
+      
+      <h2>Types of Bail Available</h2>
+      <p>There are three main types of bail available under Indian law. <strong>Regular Bail</strong> is filed after arrest and is governed by Sections 437 and 439 of the CrPC. <strong>Anticipatory Bail</strong> under Section 438 is sought when a person apprehends arrest. <strong>Default Bail</strong> is a statutory right that accrues if the police fail to file a chargesheet within the stipulated period of 60 or 90 days.</p>
+      <p>Advocate Putla Srinivas has successfully obtained bail for hundreds of clients across all categories at Tanuku Court, Bhimavaram Court, and other courts in West Godavari District. His thorough preparation, knowledge of precedent cases, and persuasive arguments have earned him a reputation as one of the most effective bail lawyers in the region.</p>
+      
+      <h2>Factors That Affect Bail Decisions</h2>
+      <p>Judges consider several factors when deciding bail applications: the nature and gravity of the offense, the evidence available, the likelihood of the accused tampering with witnesses, the criminal history of the accused, and the potential for the accused to flee from justice. A well-prepared bail application that addresses each of these concerns significantly improves your chances of getting bail.</p>
+      
+      <h2>Why You Need Advocate Putla Srinivas for Your Bail Application</h2>
+      <p>With over 15 years of practice at Tanuku Court, Advocate Putla Srinivas understands the nuances of bail proceedings inside and out. He prepares comprehensive bail applications, gathers supporting documents, and presents compelling arguments before the Hon'ble Judge. His approach is strategic, thorough, and designed to secure the fastest possible release for his clients.</p>
+      
+      <h2>Contact Advocate Putla Srinivas for Bail Assistance</h2>
+      <p>If you or a loved one needs bail assistance at Tanuku Court or any court in West Godavari District, do not delay. Time is critical in bail matters. Contact <strong>Advocate Putla Srinivas</strong> immediately at <strong>9000696403</strong> or email <strong>srinuputla789@gmail.com</strong> for a confidential consultation. Your freedom matters, and we are here to fight for it.</p>
+    `,
+  },
+  {
+    id: "property-disputes-guide",
+    title: "Property Dispute Resolution in West Godavari: Legal Rights & Remedies by Putla Srinivas",
+    excerpt:
+      "Expert legal guide on resolving property disputes in West Godavari District, Andhra Pradesh. Learn about title verification, partition suits, and how a civil lawyer can protect your property rights.",
+    category: "Civil Law",
+    keywords: ["property dispute lawyer west godavari", "land dispute tanuku", "civil advocate andhra pradesh", "property registration lawyer"],
+    readTime: "7 min read",
+    date: "May 5, 2026",
+    content: `
+      <h2>Common Property Disputes in West Godavari District</h2>
+      <p>Property disputes are among the most common and complex legal issues in West Godavari District, Andhra Pradesh. The fertile agricultural lands, urban expansion in areas like Tanuku, Bhimavaram, and Tadepalligudem, and inheritance disputes have led to a surge in property-related litigation. Common disputes include boundary disagreements, title defects, illegal encroachments, inheritance conflicts, and buyer-seller disputes.</p>
+      
+      <h2>Your Legal Rights Under Andhra Pradesh Property Law</h2>
+      <p>Under the Transfer of Property Act, 1882, and the Registration Act, 1908, property owners in Andhra Pradesh have specific rights that protect their ownership. Whether it is agricultural land, residential property, or commercial real estate, understanding your rights is the first step toward resolving any dispute. Key protections include the right to peaceful enjoyment of property, the right to seek eviction of encroachers, and the right to claim partition of ancestral property.</p>
+      
+      <h2>How Advocate Putla Srinivas Handles Property Cases</h2>
+      <p>Advocate Putla Srinivas has resolved numerous property disputes across West Godavari District through both litigation and negotiation. His approach includes thorough title verification, examination of revenue records and patta documents, survey of the disputed property, and preparation of compelling civil suits. He handles cases related to specific performance of agreements, declaration of title, permanent injunction, partition suits, and recovery of possession.</p>
+      
+      <h2>Important Documents for Property Cases</h2>
+      <p>When pursuing a property dispute case at Tanuku Court, having the right documentation is crucial. Essential documents include the registered sale deed, title deed, patta passbook, encumbrance certificate, tax receipts, survey maps, and prior settlement deeds. Advocate Putla Srinivas meticulously collects and verifies all necessary documents to build a strong case for his clients.</p>
+      
+      <h2>Consult Advocate Putla Srinivas for Property Disputes</h2>
+      <p>Property matters require expert legal guidance. Do not risk your valuable assets by delaying legal action. Contact <strong>Advocate Putla Srinivas</strong> at <strong>9000696403</strong> or email <strong>srinuputla789@gmail.com</strong> for expert property dispute resolution services at Tanuku Court. Visit our office at Satyavaram, Maruteru, Penumantra Mandal, West Godavari District, Andhra Pradesh.</p>
+    `,
+  },
+  {
+    id: "divorce-custody-guide",
+    title: "Divorce & Child Custody in Andhra Pradesh: Complete Guide by Advocate Putla Srinivas",
+    excerpt:
+      "Step-by-step guide to filing for divorce and child custody in Andhra Pradesh family courts. Learn about mutual consent divorce, contested divorce, maintenance rights, and custody procedures.",
+    category: "Family Law",
+    keywords: ["divorce lawyer tanuku", "child custody advocate andhra pradesh", "family court lawyer west godavari", "maintenance case lawyer"],
+    readTime: "8 min read",
+    date: "April 28, 2026",
+    content: `
+      <h2>Filing for Divorce in Andhra Pradesh Family Court</h2>
+      <p>Divorce proceedings in Andhra Pradesh are governed by the Hindu Marriage Act, 1955, the Special Marriage Act, 1954, and other personal laws. The family court at Tanuku has jurisdiction over divorce petitions filed by residents of Tanuku and surrounding areas in West Godavari District. There are two main types of divorce: mutual consent divorce (Section 13B of the Hindu Marriage Act) and contested divorce based on specific grounds such as cruelty, desertion, adultery, or irretrievable breakdown of marriage.</p>
+      
+      <h2>Mutual Consent Divorce vs Contested Divorce</h2>
+      <p>Mutual consent divorce is the fastest route when both spouses agree to separate. It typically takes 6 to 18 months and involves filing a joint petition, a mandatory 6-month cooling-off period, and a final hearing. Contested divorce, on the other hand, can take significantly longer depending on the complexity of the case and the grounds cited. Advocate Putla Srinivas handles both types with equal expertise, guiding clients through every step with compassion and professionalism.</p>
+      
+      <h2>Child Custody Laws in India</h2>
+      <p>The welfare of the child is the paramount consideration in all custody disputes under the Guardian and Wards Act, 1890. Courts in Andhra Pradesh consider factors such as the child's age and gender, the moral and physical welfare of the child, the financial capacity of each parent, and the child's own preference if they are old enough to express one. Both mothers and fathers have equal rights to seek custody, and joint custody arrangements are becoming increasingly common.</p>
+      
+      <h2>Maintenance and Alimony Rights</h2>
+      <p>Under Section 125 of the CrPC and the relevant provisions of the Hindu Marriage Act and Hindu Adoptions and Maintenance Act, a spouse can claim maintenance from the other. The amount of maintenance depends on factors including the income and financial status of both parties, the standard of living enjoyed during the marriage, and the needs of the children. Advocate Putla Srinivas ensures that his clients receive fair and adequate maintenance to support themselves and their children.</p>
+      
+      <h2>Get Compassionate Legal Help from Advocate Putla Srinivas</h2>
+      <p>Family matters are deeply personal and emotional. You need an advocate who understands not just the law but also your feelings. <strong>Advocate Putla Srinivas</strong> provides sensitive, compassionate, and effective legal representation in all family law matters. Call <strong>9000696403</strong> or email <strong>srinuputla789@gmail.com</strong> for a confidential consultation at Tanuku Court.</p>
+    `,
+  },
+  {
+    id: "domestic-violence-act",
+    title: "Domestic Violence Act Protection: Your Rights in Andhra Pradesh Explained by Putla Srinivas",
+    excerpt:
+      "Understanding the Protection of Women from Domestic Violence Act 2005 in Andhra Pradesh. Learn about restraining orders, residence orders, and monetary relief available to victims of domestic abuse.",
+    category: "Criminal Law",
+    keywords: ["domestic violence lawyer tanuku", "DV act advocate west godavari", "protection order andhra pradesh", "women rights lawyer"],
+    readTime: "6 min read",
+    date: "April 20, 2026",
+    content: `
+      <h2>What Constitutes Domestic Violence Under the Law</h2>
+      <p>The Protection of Women from Domestic Violence Act, 2005 (PWDVA) provides comprehensive protection to women facing physical, emotional, verbal, sexual, or economic abuse within a domestic relationship. The Act covers not just wives but also daughters, sisters, mothers, and women in live-in relationships. If you are in West Godavari District and facing any form of domestic abuse, the law is on your side, and Advocate Putla Srinivas is here to help you assert your rights.</p>
+      
+      <h2>Types of Relief Available Under the DV Act</h2>
+      <p>The DV Act provides several forms of relief: protection orders to prevent the abuser from committing further acts of violence, residence orders ensuring the right to stay in the shared household, monetary relief for expenses and losses suffered, custody orders for children, and compensation for injuries. The family court at Tanuku has the power to grant all these reliefs, and Advocate Putla Srinivas has extensive experience in obtaining favorable orders for his clients.</p>
+      
+      <h2>Filing a Domestic Violence Complaint at Tanuku Court</h2>
+      <p>The process begins with filing a Domestic Incident Report (DIR) with the Protection Officer or directly filing an application under Section 12 of the DV Act before the Magistrate. The court can issue interim relief orders even before the final hearing. Advocate Putla Srinivas guides clients through the entire process, from documentation and evidence collection to representing them in court hearings.</p>
+      
+      <h2>Contact Advocate Putla Srinivas for DV Act Cases</h2>
+      <p>If you or someone you know is a victim of domestic violence, do not suffer in silence. The law provides strong protections, and timely legal action can make all the difference. Contact <strong>Advocate Putla Srinivas</strong> at <strong>9000696403</strong> or email <strong>srinuputla789@gmail.com</strong>. All consultations are kept strictly confidential.</p>
+    `,
+  },
+  {
+    id: "consumer-complaint-tanuku",
+    title: "How to File a Consumer Complaint in Tanuku: A Step-by-Step Guide by Putla Srinivas",
+    excerpt:
+      "Complete guide on filing consumer complaints at the Consumer Disputes Redressal Forum in West Godavari. Learn about consumer rights, compensation claims, and how to approach the consumer court.",
+    category: "Civil Law",
+    keywords: ["consumer court lawyer tanuku", "consumer complaint west godavari", "consumer rights advocate andhra pradesh", "product defect lawyer"],
+    readTime: "5 min read",
+    date: "April 12, 2026",
+    content: `
+      <h2>Understanding Your Consumer Rights</h2>
+      <p>The Consumer Protection Act, 2019 empowers consumers in India with comprehensive rights including the right to be informed, the right to choose, the right to seek redressal, and the right to consumer education. If you have been sold a defective product, received poor service, or been subjected to unfair trade practices in Tanuku or anywhere in West Godavari District, you have the right to file a complaint and seek compensation.</p>
+      
+      <h2>Steps to File a Consumer Complaint</h2>
+      <p>Filing a consumer complaint involves sending a legal notice to the opposite party, filing the complaint with the relevant Consumer Disputes Redressal Commission (District, State, or National level depending on the claim amount), presenting evidence and arguments at the hearing, and obtaining a favorable order for compensation or relief. Advocate Putla Srinivas has represented numerous consumers in disputes involving defective goods, medical negligence, insurance claims, real estate fraud, and poor service delivery.</p>
+      
+      <h2>Types of Consumer Disputes</h2>
+      <p>Common consumer disputes include defective products and appliances, poor construction quality by builders, medical negligence by hospitals, unfair insurance claim rejection, deficiency in banking and financial services, and misleading advertisements. Each type requires a specific legal strategy, and Advocate Putla Srinivas tailors his approach to maximize the chances of a successful outcome.</p>
+      
+      <h2>Seek Legal Help from Advocate Putla Srinivas</h2>
+      <p>Consumer disputes can be resolved efficiently with the right legal representation. Contact <strong>Advocate Putla Srinivas</strong> at <strong>9000696403</strong> or email <strong>srinuputla789@gmail.com</strong> for expert guidance on filing and pursuing consumer complaints at Tanuku Consumer Forum.</p>
+    `,
+  },
+  {
+    id: "anticipatory-bail-guide",
+    title: "Anticipatory Bail Application in Andhra Pradesh: Legal Process Explained by Putla Srinivas",
+    excerpt:
+      "Detailed explanation of anticipatory bail under Section 438 CrPC in Andhra Pradesh. Learn when to apply, the process, documents needed, and how Advocate Putla Srinivas can protect your liberty.",
+    category: "Criminal Law",
+    keywords: ["anticipatory bail lawyer tanuku", "section 438 crpc", "preventive bail andhra pradesh", "false case lawyer west godavari"],
+    readTime: "6 min read",
+    date: "April 5, 2026",
+    content: `
+      <h2>What is Anticipatory Bail Under Section 438 CrPC?</h2>
+      <p>Anticipatory bail, also known as pre-arrest bail, is a legal remedy available under Section 438 of the Code of Criminal Procedure (CrPC). It is a direction issued by the Court that in the event of arrest, the accused shall be released on bail. This is particularly important in cases where there is a reasonable apprehension of arrest on false or fabricated charges. If you are in West Godavari District and fear arrest, Advocate Putla Srinivas can help you obtain anticipatory bail from the Sessions Court or High Court.</p>
+      
+      <h2>When Should You Apply for Anticipatory Bail?</h2>
+      <p>Anticipatory bail should be sought when you have reason to believe that a false FIR may be filed against you, when you have been named in a complaint but not yet arrested, when a rival party has threatened to implicate you in a criminal case, or when police investigations are ongoing and you may be summoned. Time is of the essence in these situations, and early legal intervention can prevent unnecessary harassment and detention.</p>
+      
+      <h2>The Process of Obtaining Anticipatory Bail</h2>
+      <p>The application is filed before the Sessions Court or High Court along with an affidavit detailing the circumstances and grounds for apprehension of arrest. The court may impose conditions such as cooperation with the investigation, not leaving the jurisdiction without permission, and not tampering with evidence. Advocate Putla Srinivas prepares comprehensive applications with strong legal grounds to maximize the chances of obtaining favorable orders.</p>
+      
+      <h2>Protect Your Freedom with Advocate Putla Srinivas</h2>
+      <p>Do not wait until you are arrested. If you anticipate legal trouble, act now. Contact <strong>Advocate Putla Srinivas</strong> at <strong>9000696403</strong> or email <strong>srinuputla789@gmail.com</strong> for immediate assistance with anticipatory bail applications.</p>
+    `,
   },
 ];
 
@@ -138,6 +308,96 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col bg-cream text-charcoal overflow-x-hidden">
+      {/* ─── Structured Data (JSON-LD) for SEO ─── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LegalService",
+            name: "Advocate Putla Srinivas",
+            description:
+              "Senior Advocate Putla Srinivas practicing Criminal Law, Civil Litigation, and Family Law at Tanuku Court, West Godavari District, Andhra Pradesh with over 15 years of experience.",
+            url: "https://advocateputlasrinivas.com",
+            telephone: "+919000696403",
+            email: "srinuputla789@gmail.com",
+            address: {
+              "@type": "PostalAddress",
+              streetAddress:
+                "Satyavaram, Maruteru, Penumantra Mandal",
+              addressLocality: "Tanuku Court",
+              addressRegion: "West Godavari District, Andhra Pradesh",
+              postalCode: "534211",
+              addressCountry: "IN",
+            },
+            geo: {
+              "@type": "GeoCoordinates",
+              latitude: "16.75",
+              longitude: "81.69",
+            },
+            areaServed: [
+              "Tanuku",
+              "West Godavari District",
+              "Andhra Pradesh",
+              "Bhimavaram",
+              "Tadepalligudem",
+              "Palakollu",
+              "Narasapuram",
+            ],
+            priceRange: "$$",
+            openingHoursSpecification: {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+              ],
+              opens: "09:00",
+              closes: "19:00",
+            },
+            sameAs: [],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "How can I contact Advocate Putla Srinivas?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "You can contact Advocate Putla Srinivas by calling 9000696403 or emailing srinuputla789@gmail.com. The office is located near Tanuku Court, Satyavaram, Maruteru, Penumantra Mandal, West Godavari District, Andhra Pradesh - 534211.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What types of cases does Advocate Putla Srinivas handle?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Advocate Putla Srinivas handles Criminal Law cases (bail, criminal defense, cyber crime), Civil Litigation (property disputes, consumer complaints, recovery suits), and Family Law (divorce, child custody, maintenance, domestic violence) at Tanuku Court, West Godavari District, Andhra Pradesh.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What are the office hours of Advocate Putla Srinivas?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Advocate Putla Srinivas is available Monday to Saturday, 9:00 AM to 7:00 PM at Tanuku Court. Sunday appointments are available by prior arrangement.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
+
       {/* ─── Navigation ─── */}
       <Navigation
         scrolled={scrolled}
@@ -159,6 +419,9 @@ export default function Home() {
 
       {/* ─── Why Choose Us ─── */}
       <WhyChooseSection />
+
+      {/* ─── Legal Blog Section ─── */}
+      <BlogSection />
 
       {/* ─── Testimonials ─── */}
       <TestimonialsSection />
@@ -195,7 +458,7 @@ function Navigation({
           : "bg-transparent"
       }`}
     >
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
         <div className="flex items-center justify-between h-18 sm:h-20">
           {/* Logo */}
           <a href="#home" className="flex items-center gap-2 sm:gap-3 group">
@@ -204,7 +467,7 @@ function Navigation({
             </div>
             <div className="flex flex-col">
               <span className="text-gold font-bold text-sm sm:text-base tracking-wide leading-tight">
-                ADV. P.S. PUTLA
+                ADV. PUTLA SRINIVAS
               </span>
               <span className="text-gold-light/60 text-[10px] sm:text-xs tracking-widest uppercase">
                 Senior Advocate
@@ -224,10 +487,10 @@ function Navigation({
               </a>
             ))}
             <a
-              href="#contact"
+              href="tel:+919000696403"
               className="ml-4 px-6 py-2.5 bg-gradient-to-r from-gold to-gold-dark text-navy-dark font-semibold text-sm rounded-full hover:shadow-lg hover:shadow-gold/20 transition-all duration-300 hover:scale-105"
             >
-              Free Consultation
+              Call: 9000696403
             </a>
           </div>
 
@@ -264,11 +527,11 @@ function Navigation({
               ))}
               <div className="pt-2">
                 <a
-                  href="#contact"
+                  href="tel:+919000696403"
                   onClick={() => setMobileMenuOpen(false)}
                   className="block text-center px-6 py-3 bg-gradient-to-r from-gold to-gold-dark text-navy-dark font-semibold text-sm rounded-full"
                 >
-                  Free Consultation
+                  Call: 9000696403
                 </a>
               </div>
             </div>
@@ -292,7 +555,7 @@ function HeroSection() {
       <div className="absolute inset-0">
         <img
           src="/hero-bg.png"
-          alt="Court building background"
+          alt="Tanuku Court Building - Advocate Putla Srinivas practices law here"
           className="w-full h-full object-cover"
         />
         <div className="hero-overlay absolute inset-0" />
@@ -327,7 +590,7 @@ function HeroSection() {
               <span className="text-white">Advocate</span>
               <br />
               <span className="gold-gradient-text">
-                Putla Srinivas Putla
+                Putla Srinivas
               </span>
             </motion.h1>
 
@@ -338,8 +601,9 @@ function HeroSection() {
               className="text-white/70 text-base sm:text-lg md:text-xl max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed"
             >
               Dedicated legal counsel with over 15 years of experience in
-              Criminal, Civil, and Family Law. Committed to upholding justice
-              and protecting the rights of every client who walks through our doors.
+              Criminal, Civil, and Family Law at Tanuku Court. Committed to
+              upholding justice and protecting the rights of every client who
+              walks through our doors.
             </motion.p>
 
             <motion.div
@@ -349,11 +613,11 @@ function HeroSection() {
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
               <a
-                href="#contact"
+                href="tel:+919000696403"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-gold to-gold-dark text-navy-dark font-bold rounded-full hover:shadow-xl hover:shadow-gold/25 transition-all duration-300 hover:scale-105 text-sm sm:text-base"
               >
-                Schedule Consultation
-                <ArrowRight className="w-5 h-5" />
+                <Phone className="w-5 h-5" />
+                Call 9000696403
               </a>
               <a
                 href="#practice"
@@ -397,18 +661,16 @@ function HeroSection() {
             className="flex-shrink-0 hidden md:block"
           >
             <div className="relative">
-              {/* Decorative ring */}
               <div className="absolute -inset-4 rounded-full bg-gradient-to-br from-gold/30 to-gold-dark/10 blur-xl" />
               <div className="absolute -inset-1 rounded-full border-2 border-gold/30" />
               <img
                 src="/advocate-portrait.png"
-                alt="Advocate Putla Srinivas Putla"
+                alt="Advocate Putla Srinivas - Criminal, Civil & Family Lawyer at Tanuku Court"
                 className="relative w-72 lg:w-80 h-auto rounded-full object-cover shadow-2xl shadow-black/30 border-4 border-gold/20"
               />
-              {/* Experience Badge */}
               <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-navy-dark border border-gold/30 rounded-full px-5 py-2 shadow-xl">
                 <span className="text-gold font-bold text-sm">
-                  15+ Years Experience
+                  Putla Srinivas
                 </span>
               </div>
             </div>
@@ -477,11 +739,7 @@ function StatsBar() {
 function AboutSection() {
   const { ref, isInView } = useSectionInView();
   return (
-    <section
-      id="about"
-      ref={ref}
-      className="py-20 sm:py-28 bg-white"
-    >
+    <section id="about" ref={ref} className="py-20 sm:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
           {/* Image Side */}
@@ -497,7 +755,7 @@ function AboutSection() {
               <div className="relative bg-navy-light rounded-2xl overflow-hidden aspect-[4/3] shadow-xl">
                 <img
                   src="/hero-bg.png"
-                  alt="Court of Law"
+                  alt="Tanuku Court - Where Advocate Putla Srinivas Practices Law"
                   className="w-full h-full object-cover opacity-80"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/80 to-transparent" />
@@ -509,7 +767,7 @@ function AboutSection() {
                         Justice for All
                       </p>
                       <p className="text-white/60 text-xs">
-                        Practicing at Tanuku District Court
+                        Advocate Putla Srinivas — Tanuku District Court
                       </p>
                     </div>
                   </div>
@@ -534,19 +792,19 @@ function AboutSection() {
             </h2>
             <div className="gold-divider w-20 mb-6" />
             <p className="text-charcoal/70 text-base sm:text-lg leading-relaxed mb-6">
-              Advocate Putla Srinivas Putla has been a pillar of legal
-              excellence in the Tanuku judicial landscape for over 15 years.
-              With a deep-rooted commitment to the principles of justice and
-              fairness, he has built a reputation for providing compassionate
-              yet assertive legal representation to clients from all walks of
-              life.
+              <strong>Advocate Putla Srinivas</strong> has been a pillar of legal
+              excellence in the Tanuku judicial landscape for over 15 years. With a
+              deep-rooted commitment to the principles of justice and fairness, he
+              has built a reputation for providing compassionate yet assertive legal
+              representation to clients from all walks of life.
             </p>
             <p className="text-charcoal/70 text-base sm:text-lg leading-relaxed mb-8">
-              Specializing in Criminal Defense, Civil Litigation, and Family
-              Law, Advocate Putla combines his extensive courtroom experience
-              with a meticulous approach to case preparation. His practice at
-              the Tanuku Court has earned him the trust and respect of clients,
-              peers, and members of the judiciary alike.
+              Specializing in Criminal Defense, Civil Litigation, and Family Law,
+              <strong> Putla Srinivas</strong> combines his extensive courtroom
+              experience at Tanuku Court with a meticulous approach to case
+              preparation. His practice has earned him the trust and respect of
+              clients, peers, and members of the judiciary alike across West
+              Godavari District.
             </p>
 
             {/* Highlights */}
@@ -554,7 +812,10 @@ function AboutSection() {
               {[
                 { icon: BookOpen, text: "B.A., LL.B. Graduate" },
                 { icon: Award, text: "Bar Council Registered" },
-                { icon: MapPin, text: "Based in Tanuku, A.P." },
+                {
+                  icon: MapPin,
+                  text: "Tanuku Court, West Godavari",
+                },
                 { icon: Clock, text: "Available 6 Days a Week" },
               ].map((item) => (
                 <div key={item.text} className="flex items-center gap-3">
@@ -569,10 +830,11 @@ function AboutSection() {
             </div>
 
             <a
-              href="#contact"
+              href="tel:+919000696403"
               className="inline-flex items-center gap-2 px-8 py-3.5 bg-charcoal text-white font-semibold rounded-full hover:bg-navy transition-all duration-300 hover:shadow-lg text-sm sm:text-base"
             >
-              Get in Touch
+              <Phone className="w-4 h-4" />
+              Call 9000696403
               <ArrowRight className="w-4 h-4" />
             </a>
           </motion.div>
@@ -588,13 +850,8 @@ function AboutSection() {
 function PracticeAreasSection() {
   const { ref, isInView } = useSectionInView();
   return (
-    <section
-      id="practice"
-      ref={ref}
-      className="py-20 sm:py-28 bg-cream"
-    >
+    <section id="practice" ref={ref} className="py-20 sm:py-28 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -609,13 +866,12 @@ function PracticeAreasSection() {
           </h2>
           <div className="gold-divider w-20 mx-auto mb-6" />
           <p className="text-charcoal/60 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-            We provide comprehensive legal services across three major
-            practice areas, ensuring expert representation for every aspect of
-            your legal needs.
+            Advocate Putla Srinivas provides comprehensive legal services across
+            three major practice areas at Tanuku Court, ensuring expert
+            representation for every aspect of your legal needs.
           </p>
         </motion.div>
 
-        {/* Practice Area Cards */}
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
           {practiceAreas.map((area, index) => (
             <motion.div
@@ -627,7 +883,6 @@ function PracticeAreasSection() {
               <Card
                 className={`practice-card h-full border border-transparent ${area.borderColor} bg-white shadow-md hover:shadow-xl rounded-2xl overflow-hidden`}
               >
-                {/* Gradient Top Bar */}
                 <div className={`h-1.5 bg-gradient-to-r ${area.color}`} />
                 <CardContent className="p-6 sm:p-8">
                   <div
@@ -648,7 +903,9 @@ function PracticeAreasSection() {
                         key={feature}
                         className="flex items-center gap-3 text-sm text-charcoal/80"
                       >
-                        <CheckCircle2 className={`w-4 h-4 ${area.iconColor} flex-shrink-0`} />
+                        <CheckCircle2
+                          className={`w-4 h-4 ${area.iconColor} flex-shrink-0`}
+                        />
                         {feature}
                       </li>
                     ))}
@@ -673,48 +930,43 @@ function WhyChooseSection() {
       icon: Award,
       title: "Extensive Experience",
       description:
-        "Over 15 years of dedicated legal practice in the Tanuku court system, handling thousands of diverse cases with proven success. Our deep familiarity with local court procedures and judicial practices gives clients a significant advantage.",
+        "Over 15 years of dedicated legal practice at Tanuku Court by Advocate Putla Srinivas, handling thousands of diverse cases with proven success. Deep familiarity with local court procedures and judicial practices gives clients a significant advantage.",
     },
     {
       icon: Users,
       title: "Client-Centric Approach",
       description:
-        "Every case is treated with personal attention and care. We understand that legal matters can be stressful, and we ensure our clients are informed, supported, and comfortable throughout the entire legal process. Your peace of mind matters to us.",
+        "Every case is treated with personal attention and care by Advocate Putla Srinivas. Legal matters can be stressful, and we ensure our clients are informed, supported, and comfortable throughout the entire legal process at Tanuku Court.",
     },
     {
       icon: Shield,
       title: "Aggressive Representation",
       description:
-        "Whether in negotiations or in the courtroom, we fight tirelessly for our clients' rights. Our advocate is known for his sharp legal acumen, compelling arguments, and unwavering commitment to achieving the best possible outcomes for every client.",
+        "Whether in negotiations or in the courtroom at Tanuku Court, Advocate Putla Srinivas fights tirelessly for his clients' rights. Known for his sharp legal acumen, compelling arguments, and unwavering commitment to achieving the best possible outcomes.",
     },
     {
       icon: BookOpen,
       title: "In-Depth Legal Knowledge",
       description:
-        "Continuously updated with the latest legal developments, landmark judgments, and amendments. Our comprehensive understanding of criminal, civil, and family law enables us to craft innovative strategies tailored to each unique case.",
+        "Advocate Putla Srinivas is continuously updated with the latest legal developments, landmark judgments, and amendments. His comprehensive understanding of criminal, civil, and family law enables him to craft innovative strategies tailored to each unique case.",
     },
     {
       icon: Clock,
       title: "Timely & Transparent",
       description:
-        "We value your time and maintain complete transparency in all proceedings. Regular case updates, clear communication about legal options, and honest assessments ensure you are never left wondering about the status of your case.",
+        "We value your time and maintain complete transparency in all proceedings. Regular case updates, clear communication about legal options, and honest assessments ensure you are never left wondering about the status of your case at Tanuku Court.",
     },
     {
       icon: Scale,
       title: "Ethical Practice",
       description:
-        "Upholding the highest standards of legal ethics and professional conduct. Our practice is built on integrity, honesty, and a genuine commitment to justice, earning the respect of the judiciary, peers, and clients alike.",
+        "Advocate Putla Srinivas upholds the highest standards of legal ethics and professional conduct. Built on integrity, honesty, and a genuine commitment to justice, earning the respect of the judiciary, peers, and clients across West Godavari District.",
     },
   ];
 
   return (
-    <section
-      id="why"
-      ref={ref}
-      className="py-20 sm:py-28 bg-navy text-white"
-    >
+    <section id="why" ref={ref} className="py-20 sm:py-28 bg-navy text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -726,17 +978,17 @@ function WhyChooseSection() {
           </Badge>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             Why Choose{" "}
-            <span className="gold-gradient-text">Adv. Putla Srinivas</span>
+            <span className="gold-gradient-text">Advocate Putla Srinivas</span>
           </h2>
           <div className="gold-divider w-20 mx-auto mb-6" />
           <p className="text-white/60 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-            When you choose our legal services, you are choosing unwavering
-            dedication, proven expertise, and a genuine commitment to securing
-            the best possible outcome for your case.
+            When you choose the legal services of Advocate Putla Srinivas at
+            Tanuku Court, you are choosing unwavering dedication, proven
+            expertise, and a genuine commitment to securing the best possible
+            outcome for your case.
           </p>
         </motion.div>
 
-        {/* Reasons Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {reasons.map((reason, index) => (
             <motion.div
@@ -764,18 +1016,252 @@ function WhyChooseSection() {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   BLOG SECTION (SEO-POWERED)
+   ═══════════════════════════════════════════════════════════ */
+function BlogSection() {
+  const { ref, isInView } = useSectionInView();
+  const [expandedBlog, setExpandedBlog] = useState<string | null>(null);
+  const [aiBlogs, setAiBlogs] = useState<BlogPost[]>([]);
+  const [generating, setGenerating] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+
+  const allBlogs = [...seoBlogPosts, ...aiBlogs];
+  const filteredBlogs =
+    selectedCategory === "All"
+      ? allBlogs
+      : allBlogs.filter((b) => b.category === selectedCategory);
+
+  const categories = [
+    "All",
+    ...Array.from(new Set(allBlogs.map((b) => b.category))),
+  ];
+
+  async function generateAIBlog() {
+    setGenerating(true);
+    try {
+      const res = await fetch("/api/generate-blog", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({}),
+      });
+      const data = await res.json();
+      if (data.success && data.blog) {
+        const newBlog: BlogPost = {
+          id: `ai-${Date.now()}`,
+          title: data.blog.title,
+          excerpt: data.blog.excerpt,
+          category: data.blog.category,
+          keywords: data.blog.keywords || [],
+          readTime: data.blog.readTime || "5 min read",
+          date: data.blog.date || new Date().toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" }),
+          content: data.blog.content,
+        };
+        setAiBlogs((prev) => [newBlog, ...prev]);
+      }
+    } catch {
+      console.error("Failed to generate blog");
+    } finally {
+      setGenerating(false);
+    }
+  }
+
+  return (
+    <section id="blog" ref={ref} className="py-20 sm:py-28 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-14 sm:mb-20"
+        >
+          <Badge className="bg-gold/10 text-gold-dark border-gold/20 mb-4 text-xs font-semibold tracking-wider uppercase">
+            Legal Knowledge Hub
+          </Badge>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-charcoal mb-4">
+            Legal <span className="text-gold-dark">Blog</span>
+          </h2>
+          <div className="gold-divider w-20 mx-auto mb-6" />
+          <p className="text-charcoal/60 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-8">
+            Expert legal articles by <strong>Advocate Putla Srinivas</strong> on
+            Criminal Law, Civil Litigation, Family Law, and more. Stay informed
+            about your legal rights and the latest developments at Tanuku Court.
+          </p>
+
+          {/* AI Generate Button */}
+          <Button
+            onClick={generateAIBlog}
+            disabled={generating}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-gold to-gold-dark text-navy-dark font-semibold rounded-full hover:shadow-lg hover:shadow-gold/20 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+          >
+            <Sparkles className={`w-4 h-4 ${generating ? "animate-spin" : ""}`} />
+            {generating ? "Generating SEO Article..." : "Generate New Article with AI"}
+          </Button>
+        </motion.div>
+
+        {/* Category Filter */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="flex flex-wrap justify-center gap-2 mb-10"
+        >
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                selectedCategory === cat
+                  ? "bg-charcoal text-white shadow-md"
+                  : "bg-charcoal/5 text-charcoal/60 hover:bg-charcoal/10"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </motion.div>
+
+        {/* Blog Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {filteredBlogs.map((blog, index) => (
+            <motion.article
+              key={blog.id}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+              itemScope
+              itemType="https://schema.org/BlogPosting"
+              className="flex flex-col"
+            >
+              <Card className="practice-card h-full bg-cream border border-charcoal/5 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-400 overflow-hidden flex flex-col">
+                <CardContent className="p-6 sm:p-8 flex flex-col flex-1">
+                  {/* Category & Read Time */}
+                  <div className="flex items-center justify-between mb-4">
+                    <Badge
+                      className="bg-gold/10 text-gold-dark border-gold/20 text-xs font-semibold"
+                      itemProp="articleSection"
+                    >
+                      {blog.category}
+                    </Badge>
+                    <div className="flex items-center gap-1 text-charcoal/40 text-xs">
+                      <Timer className="w-3 h-3" />
+                      {blog.readTime}
+                    </div>
+                  </div>
+
+                  {/* Title */}
+                  <h3
+                    className="text-lg sm:text-xl font-bold text-charcoal mb-3 leading-snug hover:text-gold-dark transition-colors cursor-pointer line-clamp-3"
+                    itemProp="headline"
+                    onClick={() =>
+                      setExpandedBlog(
+                        expandedBlog === blog.id ? null : blog.id
+                      )
+                    }
+                  >
+                    {blog.title}
+                  </h3>
+
+                  {/* Excerpt / Content */}
+                  <AnimatePresence mode="wait">
+                    {expandedBlog === blog.id ? (
+                      <motion.div
+                        key="expanded"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.4 }}
+                        className="text-charcoal/70 text-sm leading-relaxed flex-1 overflow-hidden"
+                        itemProp="articleBody"
+                        dangerouslySetInnerHTML={{ __html: blog.content }}
+                      />
+                    ) : (
+                      <motion.div
+                        key="excerpt"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="text-charcoal/60 text-sm leading-relaxed flex-1 line-clamp-4"
+                        itemProp="description"
+                      >
+                        {blog.excerpt}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* Meta info */}
+                  <div className="mt-4 flex items-center gap-2 text-charcoal/40 text-xs">
+                    <Calendar className="w-3 h-3" />
+                    <time itemProp="datePublished">{blog.date}</time>
+                  </div>
+
+                  {/* Keywords Tags */}
+                  {blog.keywords && blog.keywords.length > 0 && (
+                    <div className="mt-3 flex flex-wrap gap-1">
+                      {blog.keywords.slice(0, 3).map((kw) => (
+                        <span
+                          key={kw}
+                          className="inline-flex items-center gap-1 px-2 py-0.5 bg-charcoal/5 rounded text-[10px] text-charcoal/40"
+                          itemProp="keywords"
+                        >
+                          <Tag className="w-2 h-2" />
+                          {kw}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  <Separator className="my-4 bg-charcoal/10" />
+
+                  {/* Read More / Collapse Toggle */}
+                  <button
+                    onClick={() =>
+                      setExpandedBlog(
+                        expandedBlog === blog.id ? null : blog.id
+                      )
+                    }
+                    className="inline-flex items-center gap-1 text-gold-dark text-sm font-semibold hover:text-gold transition-colors mt-auto"
+                  >
+                    {expandedBlog === blog.id ? (
+                      <>
+                        Show Less <ChevronUp className="w-4 h-4" />
+                      </>
+                    ) : (
+                      <>
+                        Read Full Article <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
+                  </button>
+                </CardContent>
+              </Card>
+            </motion.article>
+          ))}
+        </div>
+
+        {/* SEO Note */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.6, duration: 0.8 }}
+          className="text-center text-charcoal/40 text-xs mt-10"
+        >
+          All legal blog articles are authored by <strong>Advocate Putla Srinivas</strong> and
+          optimized for search engines to help people in West Godavari District
+          find reliable legal information.
+        </motion.p>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
    TESTIMONIALS SECTION
    ═══════════════════════════════════════════════════════════ */
 function TestimonialsSection() {
   const { ref, isInView } = useSectionInView();
   return (
-    <section
-      id="testimonials"
-      ref={ref}
-      className="py-20 sm:py-28 bg-white"
-    >
+    <section id="testimonials" ref={ref} className="py-20 sm:py-28 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -790,13 +1276,12 @@ function TestimonialsSection() {
           </h2>
           <div className="gold-divider w-20 mx-auto mb-6" />
           <p className="text-charcoal/60 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-            The trust and satisfaction of our clients is the greatest measure of
-            our success. Here are some testimonials from people we have had the
-            privilege to represent.
+            The trust and satisfaction of clients is the greatest measure of
+            success for Advocate Putla Srinivas. Here are testimonials from
+            people represented at Tanuku Court.
           </p>
         </motion.div>
 
-        {/* Testimonial Cards */}
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
           {testimonials.map((testimonial, index) => (
             <motion.div
@@ -805,23 +1290,17 @@ function TestimonialsSection() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: index * 0.2, duration: 0.7 }}
             >
-              <Card className="h-full bg-cream border border-charcoal/5 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-400">
+              <Card className="h-full bg-white border border-charcoal/5 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-400">
                 <CardContent className="p-6 sm:p-8 flex flex-col">
-                  {/* Stars */}
                   <div className="flex gap-1 mb-4">
                     {Array.from({ length: testimonial.rating }).map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-4 h-4 text-gold fill-gold"
-                      />
+                      <Star key={i} className="w-4 h-4 text-gold fill-gold" />
                     ))}
                   </div>
-                  {/* Quote */}
                   <p className="text-charcoal/70 text-sm sm:text-base leading-relaxed flex-1 mb-6 italic">
                     &ldquo;{testimonial.text}&rdquo;
                   </p>
                   <Separator className="mb-4 bg-charcoal/10" />
-                  {/* Author */}
                   <div className="flex items-center gap-3">
                     <div className="w-11 h-11 rounded-full bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center">
                       <span className="text-navy-dark font-bold text-sm">
@@ -859,17 +1338,24 @@ function ContactSection() {
     {
       icon: MapPin,
       title: "Office Address",
-      details: ["Adv. Putla Srinivas Putla", "Near Tanuku District Court", "Tanuku, West Godavari Dist.", "Andhra Pradesh - 534211"],
+      details: [
+        "Advocate Putla Srinivas",
+        "Tanuku Court",
+        "Satyavaram, Maruteru,",
+        "Penumantra Mandal",
+        "West Godavari District,",
+        "Andhra Pradesh - 534211",
+      ],
     },
     {
       icon: Phone,
       title: "Phone",
-      details: ["+91 98765 43210", "+91 87654 32109"],
+      details: ["+91 9000696403"],
     },
     {
       icon: Mail,
       title: "Email",
-      details: ["advocate.putla@gmail.com", "srinivas.putla@lawyer.com"],
+      details: ["srinuputla789@gmail.com"],
     },
     {
       icon: Clock,
@@ -879,13 +1365,8 @@ function ContactSection() {
   ];
 
   return (
-    <section
-      id="contact"
-      ref={ref}
-      className="py-20 sm:py-28 bg-cream"
-    >
+    <section id="contact" ref={ref} className="py-20 sm:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -896,13 +1377,13 @@ function ContactSection() {
             Get in Touch
           </Badge>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-charcoal mb-4">
-            Contact <span className="text-gold-dark">Us</span>
+            Contact <span className="text-gold-dark">Advocate Putla Srinivas</span>
           </h2>
           <div className="gold-divider w-20 mx-auto mb-6" />
           <p className="text-charcoal/60 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-            Whether you need legal advice, want to schedule a consultation, or
-            have questions about our services, we are here to help. Reach out
-            to us through any of the channels below.
+            Whether you need legal advice, want to schedule a consultation at
+            Tanuku Court, or have questions about our services, Advocate Putla
+            Srinivas is here to help. Reach out today.
           </p>
         </motion.div>
 
@@ -938,10 +1419,12 @@ function ContactSection() {
                 <div className="text-center">
                   <MapPin className="w-10 h-10 text-gold mx-auto mb-2" />
                   <p className="text-charcoal/50 text-sm font-medium">
-                    Tanuku District Court Area
+                    Tanuku Court Area
                   </p>
                   <p className="text-charcoal/40 text-xs">
-                    West Godavari, Andhra Pradesh
+                    Satyavaram, Maruteru, Penumantra Mandal,
+                    <br />
+                    West Godavari District, Andhra Pradesh
                   </p>
                 </div>
               </div>
@@ -955,13 +1438,14 @@ function ContactSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex-1"
           >
-            <Card className="bg-white border border-charcoal/10 rounded-2xl shadow-md overflow-hidden">
+            <Card className="bg-cream border border-charcoal/10 rounded-2xl shadow-md overflow-hidden">
               <div className="bg-charcoal p-6 sm:p-8">
                 <h3 className="text-xl font-bold text-white mb-1">
                   Request a Consultation
                 </h3>
                 <p className="text-white/60 text-sm">
-                  Fill out the form below and we will get back to you promptly.
+                  Fill out the form and Advocate Putla Srinivas will get back to
+                  you promptly.
                 </p>
               </div>
               <CardContent className="p-6 sm:p-8 space-y-5">
@@ -972,7 +1456,7 @@ function ContactSection() {
                     </label>
                     <Input
                       placeholder="Enter your full name"
-                      className="border-charcoal/15 focus:border-gold focus:ring-gold/20 h-11"
+                      className="border-charcoal/15 focus:border-gold focus:ring-gold/20 h-11 bg-white"
                     />
                   </div>
                   <div>
@@ -981,7 +1465,7 @@ function ContactSection() {
                     </label>
                     <Input
                       placeholder="+91 XXXXX XXXXX"
-                      className="border-charcoal/15 focus:border-gold focus:ring-gold/20 h-11"
+                      className="border-charcoal/15 focus:border-gold focus:ring-gold/20 h-11 bg-white"
                     />
                   </div>
                 </div>
@@ -992,7 +1476,7 @@ function ContactSection() {
                   <Input
                     type="email"
                     placeholder="your@email.com"
-                    className="border-charcoal/15 focus:border-gold focus:ring-gold/20 h-11"
+                    className="border-charcoal/15 focus:border-gold focus:ring-gold/20 h-11 bg-white"
                   />
                 </div>
                 <div>
@@ -1003,7 +1487,7 @@ function ContactSection() {
                     {["Criminal", "Civil", "Family"].map((area) => (
                       <label
                         key={area}
-                        className="flex items-center justify-center px-4 py-2.5 border border-charcoal/15 rounded-lg cursor-pointer hover:border-gold hover:bg-gold/5 transition-colors text-sm font-medium text-charcoal/70 has-[:checked]:border-gold has-[:checked]:bg-gold/10 has-[:checked]:text-gold-dark"
+                        className="flex items-center justify-center px-4 py-2.5 border border-charcoal/15 rounded-lg cursor-pointer hover:border-gold hover:bg-gold/5 transition-colors text-sm font-medium text-charcoal/70 has-[:checked]:border-gold has-[:checked]:bg-gold/10 has-[:checked]:text-gold-dark bg-white"
                       >
                         <input
                           type="radio"
@@ -1023,11 +1507,11 @@ function ContactSection() {
                   <Textarea
                     placeholder="Briefly describe your legal issue..."
                     rows={4}
-                    className="border-charcoal/15 focus:border-gold focus:ring-gold/20 resize-none"
+                    className="border-charcoal/15 focus:border-gold focus:ring-gold/20 resize-none bg-white"
                   />
                 </div>
                 <Button className="w-full bg-charcoal hover:bg-navy text-white font-semibold py-3 rounded-xl transition-all duration-300 hover:shadow-lg text-sm sm:text-base h-11">
-                  Submit Consultation Request
+                  Send to Advocate Putla Srinivas
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
                 <p className="text-charcoal/40 text-xs text-center">
@@ -1048,7 +1532,6 @@ function ContactSection() {
 function Footer() {
   return (
     <footer className="bg-navy-dark text-white mt-auto">
-      {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           {/* Brand */}
@@ -1059,7 +1542,7 @@ function Footer() {
               </div>
               <div>
                 <p className="text-gold font-bold text-sm tracking-wide">
-                  ADV. P.S. PUTLA
+                  ADV. PUTLA SRINIVAS
                 </p>
                 <p className="text-gold-light/50 text-[10px] tracking-widest uppercase">
                   Senior Advocate
@@ -1067,9 +1550,9 @@ function Footer() {
               </div>
             </div>
             <p className="text-white/50 text-sm leading-relaxed mb-5">
-              Providing trusted legal counsel and aggressive representation
-              in Criminal, Civil, and Family Law at Tanuku Court, Andhra
-              Pradesh.
+              Advocate Putla Srinivas — Providing trusted legal counsel and
+              aggressive representation in Criminal, Civil, and Family Law at
+              Tanuku Court, West Godavari District, Andhra Pradesh.
             </p>
             <div className="flex gap-3">
               {["Facebook", "LinkedIn", "Twitter"].map((social) => (
@@ -1126,20 +1609,20 @@ function Footer() {
           {/* Contact */}
           <div>
             <h4 className="font-semibold text-white text-sm mb-5 tracking-wide">
-              Contact
+              Contact Advocate Putla Srinivas
             </h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-white/50 text-sm">
                 <MapPin className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
-                Tanuku, West Godavari, A.P.
+                Tanuku Court, Satyavaram, Maruteru, Penumantra Mandal, W.G. Dist., A.P.
               </li>
               <li className="flex items-center gap-2 text-white/50 text-sm">
                 <Phone className="w-4 h-4 text-gold flex-shrink-0" />
-                +91 98765 43210
+                +91 9000696403
               </li>
               <li className="flex items-center gap-2 text-white/50 text-sm">
                 <Mail className="w-4 h-4 text-gold flex-shrink-0" />
-                advocate.putla@gmail.com
+                srinuputla789@gmail.com
               </li>
               <li className="flex items-center gap-2 text-white/50 text-sm">
                 <Clock className="w-4 h-4 text-gold flex-shrink-0" />
@@ -1150,14 +1633,13 @@ function Footer() {
         </div>
       </div>
 
-      {/* Bottom Bar */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/40 text-xs sm:text-sm text-center sm:text-left">
-            &copy; {new Date().getFullYear()} Advocate Putla Srinivas Putla. All rights reserved.
+            &copy; {new Date().getFullYear()} Advocate Putla Srinivas. All rights reserved.
           </p>
           <p className="text-white/30 text-xs">
-            Practicing at Tanuku District Court, Andhra Pradesh, India
+            Practicing at Tanuku District Court, West Godavari District, Andhra Pradesh, India
           </p>
         </div>
       </div>
